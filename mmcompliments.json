@@ -1,125 +1,124 @@
 {
-	   "....-01-01": [
-	   "Happy New Year!"
-	   ],
-	   "....-01-07": [
-	   "Happy Birthday, Matt!"
-	   ],
-	   "....-01-08": [
-	   "Hail to the King, Baby!",
-	   "I'm all shook up!",
-	   "You ain't nuthin' but a hound dog!"
-	   ],
-	   "....-01-25": [
-	   "yaD etisoppO yppaH"
-	   ],
-	   "2021-02-02": [
-	   "It's Groundhog Day \nAgain!"
-	   ],
-	   "....-02-14": [
-	   "Happy Valentine's Day!"
-	   ],
-	   "2021-02-16": [
-	   "Laissez les bon temps rouler!"
-	   ],
-	   "....-03-14": [
-	   "Time for Pi!"
-	   ],
-	   "2021-03-17": [
-	   "Erin Go Bragh!",
-	   "Kiss Me! \nI'm Irish"
-	   ],
-	   "....-04-01": [
-	   "Your shoes are untied.",
-	   "Made you look.",
-	   "April Fools!"
-	   ],
-	   "2021-04-04": [
-	   "Happy Easter!",
-	   "Rejoice!",
-	   "He is Risen!"
-	   ],
-	   "....-05-04": [
-	   "May the Fourth be with you!"
-	   ],
-	   "....-05-06": [
-	   "Revenge of the Sixth!"
-	   ],
-	   "....-05-09": [
-	   "Happy Mother's Day!"
-	   ],
-	   "....-05-25": [
-	   "Don't forget your towel.",
-	   "42!"
-	   ],
-	   "2021-05-31": [
-	   "Happy Memorial Day!"
-	   ],
-	   "2021-06-20": [
-	   "Happy Father's Day!"
-	   ],
-	   "....-07-04": [
-	   "Celebrate your Independence!",
-	   "Freedom!",
-	   "Happy Fourth of July!"
-	   ],
-	   "....-07-09": [
-	   "Happy Birthday, Noodle!"
-	   ],
-	   "....-08-14": [
-	   "Happy Anniversary!"
-	   ],
-	   "2021-09-06": [
-	   "Happy Labor Day!"
-	   ],
-	   "....-09-11": [
-	   "Never Forget.",
-	   "Some gave all",
-	   "343/61",
-	   "Let's Roll!"
-	   ],
-	   "...-10-..": [
-	   "Boo!"
-	   ],
-	   "....-11-16": [
-	   "Happy Birthday, Susanne!"
-	   ],
-	   "2021-11-25": [
-	   "Gobble! Gobble!",
-	   "Happy Thanksgiving!"
-	   ],
-	   "....-12-07": [
-	   "A day that will live in infamy!"
-	   ],
-	   "....-12-23": [
-	   "Time to air our grievances!",
-	   "Festivus for the rest of us!"
-	   ],
-	   "....-12-25": [
-	   "Merry Christmas, Charlie Brown!",
-	   "Rejoice!",
-	   "Christ the Savior is born!"
-	   ],
-	   anytime: {
-	   "Hey!",
-	   "Hello.",
-	   "Whaddup Dog?",
-	   "Dude!",
-	   "Hej!",
-	   "You stay classy!"
-	   ],
-	   morning: [
-	   "Good Morning!",
-	   "Smile \nIt's a beautiful day!",
-	   "Rise and Shine!",
-	   "Wakey Wakey! \nEggs & Baky!",
-	   "Coffee is ready!"
-	   ],
-	   afternoon: [
-	   "Is it three-thirty, yet?",
-	   "What a wonderful day!"
-	   ],
-	   evening: [
-	   "Good Evening."
-	   ]
+	"....-01-01": [
+		"Happy New Year!"
+	],
+	"....-01-07": [
+		"Happy Birthday, Matt!"
+	],
+	"....-01-08": [
+		"Hail to the King, Baby!",
+		"I'm all shook up!",
+		"You ain't nuthin' but a hound dog!"
+	],
+	"....-01-25": [
+		"yaD etisoppO yppaH"
+	],
+	"2021-02-02": [
+		"It's Groundhog Day \nAgain!"
+	],
+	"....-02-14": [
+		"Happy Valentine's Day!"
+	],
+	"2021-02-16": [
+		"Laissez les bon temps rouler!"
+	],
+	"....-03-14": [
+		"Time for Pi!"
+	],
+	"2021-03-17": [
+		"Erin Go Bragh!",
+		"Kiss Me! \nI'm Irish"
+	],
+	"....-04-01": [
+		"Your shoes are untied.",
+		"Made you look.",
+		"April Fools!"
+	],
+	"2021-04-04": [
+		"Happy Easter!",
+		"Rejoice!",
+		"He is Risen!"
+	],
+	"....-05-04": [
+		"May the Fourth be with you!"
+	],
+	"....-05-06": [
+		"Revenge of the Sixth!"
+	],
+	"....-05-09": [
+		"Happy Mother's Day!"
+	],
+	"....-05-25": [
+		"Don't forget your towel.",
+		"42!"
+	],
+	"2021-05-31": [
+		"Happy Memorial Day!"
+	],
+	"2021-06-20": [
+		"Happy Father's Day!"
+	],
+	"....-07-04": [
+		"Celebrate your Independence!",
+		"Freedom!",
+		"Happy Fourth of July!"
+	],
+	"....-07-09": [
+		"Happy Birthday, Noodle!"
+	],
+	"....-08-14": [
+		"Happy Anniversary!"
+	],
+	"2021-09-06": [
+		"Happy Labor Day!"
+	],
+	"....-09-11": [
+		"Never Forget.",
+		"Some gave all",
+		"343/61",
+		"Let's Roll!"
+	],
+	"...-10-..": [
+		"Boo!"
+	],
+	"....-11-16": [
+		"Happy Birthday, Susanne!"
+	],
+	"2021-11-25": [
+		"Gobble! Gobble!",
+		"Happy Thanksgiving!"
+	],
+	"....-12-07": [
+		"A day that will live in infamy!"
+	],
+	"....-12-23": [
+		"Time to air our grievances!",
+		"Festivus for the rest of us!"
+	],
+	"....-12-25": [
+		"Merry Christmas, Charlie Brown!"
+	],
+	"anytime": [
+		"Hey!",
+		"Hello.",
+		"Whaddup Dog?",
+		"Dude!",
+		"Hej!",
+		"You stay classy!"
+	],
+	"morning": [
+		"Good Morning!",
+		"Smile \nIt's a beautiful day!",
+		"Rise and Shine!",
+		"Wakey Wakey! \nEggs & Baky!",
+		"Coffee is ready!"
+	],
+	"afternoon": [
+		"Is it three-thirty, yet?",
+		"What a wonderful day!"
+	],
+	"evening": [
+		"Good Evening.",
+		"The day isn't over yet!"
+	]
 }
