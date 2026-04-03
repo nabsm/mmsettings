@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IQI Youth — Rise Together</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & BASE ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Brand colours */
+      --orange:        #ff9933;
+      --orange-deep:   #ff6633;
+      --red:           #e60000;
+      --white:         #ffffff;
+
+      /* Derived */
+      --orange-light:  #ffb366;
+      --orange-pale:   rgba(255,153,51,0.12);
+      --orange-border: rgba(255,153,51,0.22);
+
+      /* Text */
+      --text:          #1C1410;
+      --text-muted:    #6B5E52;
+      --text-faint:    #B0A498;
+
+      /* Backgrounds */
+      --bg:            #ffffff;
+      --bg-surface:    #faf8f6;
+      --bg-elevated:   #f2eeea;
+
+      --radius-sm: 6px;
+      --radius-md: 14px;
+      --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* ─── UTILITY ──────────────────────────────────────────── */
+    .container {
+      width: min(100%, 1160px);
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.visible        { opacity: 1; transform: none; }
+    .reveal-delay-1        { transition-delay: 0.08s; }
+    .reveal-delay-2        { transition-delay: 0.16s; }
+    .reveal-delay-3        { transition-delay: 0.24s; }
+    .reveal-delay-4        { transition-delay: 0.32s; }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline: 0;
+      z-index: 100;
+      padding-block: 1.1rem;
+      transition: background 0.4s ease, border-color 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom-color: var(--orange-border);
+    }
+    /* Transparent nav over gradient hero */
+    nav:not(.scrolled) {
+      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 100%);
+    }
+    nav:not(.scrolled) .nav-brand .iqi   { color: #ffffff; }
+    nav:not(.scrolled) .nav-brand .youth { color: rgba(255,255,255,0.85); }
+    nav:not(.scrolled) .nav-brand .sep   { color: rgba(255,255,255,0.4); }
+    nav:not(.scrolled) .nav-cta {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #ffffff;
+    }
+    nav:not(.scrolled) .nav-cta:hover { background: rgba(255,255,255,0.3); }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+    }
+    .nav-brand .iqi    { font-weight: 900; font-size: 1.25rem; color: var(--orange); letter-spacing: 0.05em; text-transform: uppercase; }
+    .nav-brand .sep    { color: var(--orange-border); font-weight: 300; }
+    .nav-brand .youth  { font-weight: 900; font-size: 1.25rem; color: var(--text);  letter-spacing: 0.05em; text-transform: uppercase; }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--orange);
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      padding: 0.6rem 1.35rem;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .nav-cta:hover { background: var(--orange-light); transform: translateY(-1px); }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding-block: clamp(6rem, 12vw, 10rem) clamp(4rem, 8vw, 7rem);
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff9933 0%, #ff6633 50%, #e60000 100%);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-bg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 85% 20%, rgba(255,255,255,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(255,255,255,0.07) 0%, transparent 55%);
+      z-index: 0;
+    }
+
+    /* Split grid */
+    .hero-split {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-left { display: flex; flex-direction: column; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+    }
+
+    /* Photo column */
+    .hero-photo-wrap {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-photo-wrap img {
+      width: 100%;
+      height: clamp(480px, 68vh, 700px);
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+    }
+    /* White accent bar beside photo */
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: -1rem;
+      width: 4px;
+      height: calc(100% - 4rem);
+      background: rgba(255,255,255,0.6);
+      border-radius: 4px;
+    }
+    /* Floating badge on photo */
+    .hero-photo-badge {
+      position: absolute;
+      bottom: 1.75rem;
+      left: -1.5rem;
+      background: var(--white);
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 210px;
+    }
+    .hero-photo-badge .badge-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: white;
+      font-size: 1.1rem;
+    }
+    .hero-photo-badge .badge-text strong {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .hero-photo-badge .badge-text span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1.6rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 2px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 2px;
+    }
+
+    .hero-headline {
+      font-weight: 900;
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+    }
+    .hero-headline .accent { color: rgba(255,255,255,0.85); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.75;
+      max-width: 500px;
+      margin-bottom: 2.75rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: #ffffff;
+      color: var(--orange-deep);
+      font-weight: 900;
+      font-size: 0.88rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.95rem 2rem;
+      border-radius: var(--radius-sm);
+      transition: filter 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+    .btn-primary:hover {
+      filter: brightness(0.96);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(0,0,0,0.22);
+    }
+    .btn-primary .arrow { transition: transform 0.2s ease; }
+    .btn-primary:hover .arrow { transform: translateX(3px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.82);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-ghost:hover { color: #ffffff; border-color: rgba(255,255,255,0.7); }
+
+    .hero-stat-row {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.25);
+    }
+    .hero-stat .num {
+      font-weight: 900;
+      font-size: 2rem;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .hero-stat .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-top: 0.25rem;
+    }
+
+    /* ─── SECTION COMMON ───────────────────────────────────── */
+    section { padding-block: clamp(5rem, 10vw, 8.5rem); }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 1.25rem;
+      height: 2px;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+
+    /* ─── ABOUT ────────────────────────────────────────────── */
+    #about {
+      background: var(--bg-surface);
+      border-block: 1px solid var(--orange-border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: start;
+    }
+
+    .about-headline {
+      font-weight: 900;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .about-headline .accent { color: var(--orange); }
+
+    .about-body {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.75rem;
+    }
+    .about-body strong { color: var(--text); font-weight: 700; }
+
+    .about-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, var(--orange-border), transparent);
+      margin-block: 2rem;
+    }
+
+    .about-quote {
+      font-size: 1.15rem;
+      font-weight: 800;
+      font-style: italic;
+      color: var(--orange);
+      line-height: 1.55;
+      padding-left: 1.25rem;
+      border-left: 3px solid var(--orange-deep);
+    }
+
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-top: 2rem;
+      display: block;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+
+    /* ─── BENEFITS ─────────────────────────────────────────── */
+    #benefits { position: relative; }
+
+    .benefits-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: clamp(3rem, 6vw, 4.5rem);
+      flex-wrap: wrap;
+    }
+
+    .benefits-headline {
+      font-weight: 900;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      max-width: 420px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--orange-border);
+      border: 1px solid var(--orange-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .benefit-card {
+      background: var(--bg-surface);
+      padding: clamp(1.6rem, 3.5vw, 2.5rem);
+      transition: background 0.3s ease;
+    }
+    .benefit-card:hover { background: var(--bg-elevated); }
+
+    .benefit-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1.25rem;
+      color: var(--orange);
+    }
+
+    .benefit-title {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .benefit-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .benefit-card.wide {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+    .benefit-card.wide .benefit-visual { opacity: 0.65; }
+
+    /* ─── CATEGORIES ───────────────────────────────────────── */
+    #categories {
+      background: var(--bg);
+      border-block: 1px solid var(--orange-border);
+    }
+
+    .categories-header {
+      text-align: center;
+      margin-bottom: clamp(3rem, 6vw, 4.5rem);
+    }
+
+    .categories-headline {
+      font-weight: 900;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.85rem;
+    }
+
+    .categories-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 460px;
+      margin-inline: auto;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      max-width: 820px;
+      margin-inline: auto;
+    }
+
+    .cat-card {
+      position: relative;
+      border: 1px solid var(--orange-border);
+      border-radius: var(--radius-md);
+      padding: clamp(2rem, 4vw, 2.75rem);
+      overflow: hidden;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .cat-card:hover {
+      border-color: rgba(255,153,51,0.6);
+      transform: translateY(-4px);
+    }
+    .cat-card.beta:hover { border-color: rgba(230,0,0,0.45); }
+
+    /* Top stripe */
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline: 0;
+      height: 3px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .cat-card.alpha::before { background: linear-gradient(90deg, var(--orange) 0%, var(--orange-deep) 100%); }
+    .cat-card.beta::before  { background: linear-gradient(90deg, var(--red) 0%, var(--orange-deep) 100%); }
+
+    .cat-card.alpha { background: linear-gradient(145deg, #fff3e0, #ffe0b2); border-color: rgba(255,153,51,0.35); }
+    .cat-card.beta  { background: linear-gradient(145deg, #fff0f0, #ffd0d0); border-color: rgba(230,0,0,0.22); }
+
+    .cat-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .cat-card.alpha .cat-badge {
+      background: rgba(255,102,0,0.15);
+      color: #b35000;
+      border: 1px solid rgba(255,102,0,0.35);
+    }
+    .cat-card.beta .cat-badge {
+      background: rgba(180,0,0,0.12);
+      color: #990000;
+      border: 1px solid rgba(180,0,0,0.28);
+    }
+
+    .cat-name {
+      font-weight: 900;
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cat-age {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+    .cat-card.alpha .cat-age { color: #b35000; }
+    .cat-card.beta  .cat-age { color: #990000; }
+
+    .cat-desc {
+      font-size: 0.92rem;
+      color: #5a3e2c;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+    .cat-card.beta .cat-desc { color: #5a2c2c; }
+
+    .cat-divider {
+      height: 1px;
+      background: rgba(180,80,0,0.18);
+      margin-bottom: 1.75rem;
+    }
+    .cat-card.beta .cat-divider { background: rgba(180,0,0,0.15); }
+
+    .cat-price-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8a6a50;
+      margin-bottom: 0.3rem;
+    }
+    .cat-card.beta .cat-price-label { color: #8a4040; }
+    .cat-price {
+      font-weight: 900;
+      font-size: 2.2rem;
+      color: #b35000;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .cat-card.beta .cat-price { color: #990000; }
+    .cat-price span {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: #7a5540;
+    }
+
+    /* ─── JOIN SECTION-LABEL OVERRIDE ─────────────────────── */
+    #join .section-label { color: rgba(255,255,255,0.8); }
+    #join .section-label::before { background: rgba(255,255,255,0.6); }
+
+    /* ─── JOIN / CTA ───────────────────────────────────────── */
+    #join {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      background: linear-gradient(135deg, #ff6633 0%, #e60000 100%);
+    }
+
+    .join-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 55% at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 65%),
+        radial-gradient(ellipse 30% 40% at 15% 20%, rgba(255,255,255,0.05) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .join-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .join-content {
+      position: relative;
+      z-index: 2;
+      max-width: 660px;
+      margin-inline: auto;
+    }
+
+    .join-headline {
+      font-weight: 900;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 1.1rem;
+    }
+    .join-headline .accent { color: rgba(255,255,255,0.82); }
+
+    .join-sub {
+      color: rgba(255,255,255,0.82);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 440px;
+      margin-inline: auto;
+    }
+
+    .join-fee {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 100px;
+      padding: 0.55rem 1.4rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+    .join-fee .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.7);
+      flex-shrink: 0;
+    }
+
+    .join-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .btn-join {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #ffffff;
+      color: var(--red);
+      font-weight: 900;
+      font-size: 0.95rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 1.1rem 2.5rem;
+      border-radius: var(--radius-sm);
+      transition: filter 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.2);
+    }
+    .btn-join:hover {
+      filter: brightness(0.96);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 44px rgba(0,0,0,0.26);
+    }
+
+    .join-note {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.62);
+      font-weight: 500;
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--orange-border);
+      padding-block: 2.25rem;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-brand         { display: flex; align-items: baseline; gap: 0.4rem; }
+    .footer-brand .iqi    { font-weight: 900; font-size: 1rem; color: var(--orange); letter-spacing: 0.05em; text-transform: uppercase; }
+    .footer-brand .sep    { color: var(--orange-border); font-weight: 300; }
+    .footer-brand .youth  { font-weight: 900; font-size: 1rem; color: var(--text);  letter-spacing: 0.05em; text-transform: uppercase; }
+    .footer-meta { font-size: 0.78rem; color: var(--text-muted); text-align: right; line-height: 1.6; }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero-split        { grid-template-columns: 1fr; }
+      .hero-photo-wrap   { display: none; }
+      .about-grid        { grid-template-columns: 1fr; gap: 2.75rem; }
+      .about-photo       { display: none; }
+      .benefits-grid     { grid-template-columns: 1fr 1fr; }
+      .benefit-card.wide { grid-column: span 2; grid-template-columns: 1fr; }
+      .benefit-card.wide .benefit-visual { display: none; }
+      .categories-grid   { grid-template-columns: 1fr; max-width: 440px; }
+      .hero-stat-row     { gap: 1.75rem; }
+    }
+    @media (max-width: 620px) {
+      .benefits-grid       { grid-template-columns: 1fr; }
+      .benefit-card.wide   { grid-column: span 1; }
+      .benefits-header     { flex-direction: column; align-items: flex-start; }
+      .footer-inner        { flex-direction: column; align-items: flex-start; }
+      .footer-meta         { text-align: left; }
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-surface); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 10px; }
+
+    /* ─── PRINT / PDF ──────────────────────────────────────── */
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+      nav    { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+
+      body   { font-size: 11pt; }
+      section { padding-block: 2.5rem; page-break-inside: avoid; }
+
+      #hero  { min-height: auto; padding-block: 3rem 2rem; page-break-after: always; }
+      #about { page-break-after: always; }
+      #benefits { page-break-after: always; }
+      #categories { page-break-after: always; }
+      #join  { page-break-after: avoid; }
+
+      .hero-split { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .hero-photo-wrap { display: block !important; }
+      .hero-photo-wrap img { height: 380px; }
+      .hero-headline { font-size: 2.8rem; }
+      .hero-stat-row { margin-top: 1.5rem; padding-top: 1.25rem; }
+
+      .about-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .about-photo { display: block !important; }
+
+      .benefits-grid { grid-template-columns: repeat(3, 1fr); }
+      .benefit-card.wide { grid-template-columns: 1fr; }
+      .benefit-card.wide .benefit-visual { display: none; }
+
+      .categories-grid { grid-template-columns: 1fr 1fr; max-width: 100%; }
+
+      .btn-primary, .btn-join, .nav-cta { display: none !important; }
+      .btn-ghost { display: none !important; }
+
+      .join-actions { display: none !important; }
+      .join-content { max-width: 100%; }
+
+      footer { page-break-before: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-brand">
+          <span class="iqi">IQI</span>
+          <span class="sep">/</span>
+          <span class="youth">Youth</span>
+        </a>
+        <a href="https://atlas.iqiglobal.com/#/marketing-centre/products-catalog" class="nav-cta" target="_blank" rel="noopener">Join Now →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0"    y1="150" x2="1440" y2="150" stroke="rgba(255,153,51,0.035)" stroke-width="1"/>
+        <line x1="0"    y1="300" x2="1440" y2="300" stroke="rgba(255,153,51,0.035)" stroke-width="1"/>
+        <line x1="0"    y1="450" x2="1440" y2="450" stroke="rgba(255,153,51,0.035)" stroke-width="1"/>
+        <line x1="0"    y1="600" x2="1440" y2="600" stroke="rgba(255,153,51,0.035)" stroke-width="1"/>
+        <line x1="0"    y1="750" x2="1440" y2="750" stroke="rgba(255,153,51,0.035)" stroke-width="1"/>
+        <line x1="240"  y1="0"   x2="240"  y2="900" stroke="rgba(255,153,51,0.03)"  stroke-width="1"/>
+        <line x1="480"  y1="0"   x2="480"  y2="900" stroke="rgba(255,153,51,0.03)"  stroke-width="1"/>
+        <line x1="720"  y1="0"   x2="720"  y2="900" stroke="rgba(255,153,51,0.03)"  stroke-width="1"/>
+        <line x1="960"  y1="0"   x2="960"  y2="900" stroke="rgba(255,153,51,0.03)"  stroke-width="1"/>
+        <line x1="1200" y1="0"   x2="1200" y2="900" stroke="rgba(255,153,51,0.03)"  stroke-width="1"/>
+        <line x1="900"  y1="0"   x2="1440" y2="700" stroke="rgba(255,102,51,0.07)"  stroke-width="1.5"/>
+        <line x1="1000" y1="0"   x2="1440" y2="560" stroke="rgba(255,153,51,0.045)" stroke-width="1"/>
+        <path d="M1180 0 L1440 0 L1440 280" stroke="rgba(255,102,51,0.1)" stroke-width="1.5" fill="none"/>
+        <circle cx="720"  cy="450" r="2"   fill="rgba(255,153,51,0.18)"/>
+        <circle cx="960"  cy="300" r="1.5" fill="rgba(255,153,51,0.15)"/>
+        <circle cx="480"  cy="600" r="1.5" fill="rgba(255,102,51,0.12)"/>
+        <circle cx="1200" cy="150" r="1"   fill="rgba(255,153,51,0.12)"/>
+        <circle cx="240"  cy="750" r="1"   fill="rgba(230,0,0,0.1)"/>
+      </svg>
+    </div>
+    <div class="hero-glow"></div>
+
+    <div class="container" style="position:relative;z-index:2;width:100%;">
+      <div class="hero-split">
+
+        <!-- LEFT: text -->
+        <div class="hero-left">
+          <div class="hero-content">
+            <p class="hero-eyebrow reveal">Introducing IQI Youth Division</p>
+
+            <h1 class="hero-headline reveal reveal-delay-1">
+              The Future<br>
+              of Real Estate<br>
+              Starts <span class="accent">With You</span>
+            </h1>
+
+            <p class="hero-sub reveal reveal-delay-2">
+              A movement built for driven, ambitious agents — ready to rise together,
+              grow together, and redefine what's possible in real estate.
+              Your journey to the top begins here.
+            </p>
+
+            <div class="hero-actions reveal reveal-delay-3">
+              <a href="#join" class="btn-primary">
+                Join IQI Youth <span class="arrow">→</span>
+              </a>
+              <a href="#about" class="btn-ghost">Discover our mission</a>
+            </div>
+          </div>
+
+          <div class="hero-stat-row reveal reveal-delay-4">
+            <div class="hero-stat">
+              <div class="num">2</div>
+              <div class="label">Membership Tiers</div>
+            </div>
+            <div class="hero-stat">
+              <div class="num">1</div>
+              <div class="label">Community. One Vision</div>
+            </div>
+            <div class="hero-stat">
+              <div class="num">∞</div>
+              <div class="label">Potential Unlocked</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: photo -->
+        <div class="hero-photo-wrap reveal reveal-delay-2">
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=900&fit=crop&q=80"
+            alt="Young IQI agents collaborating"
+            loading="eager"
+          />
+          <div class="hero-photo-badge">
+            <div class="badge-icon">🚀</div>
+            <div class="badge-text">
+              <strong>Rise Together</strong>
+              <span>IQI Youth Division 2026</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <p class="section-label reveal">Our Mission</p>
+          <h2 class="about-headline reveal reveal-delay-1">
+            Built for<br>
+            the <span class="accent">next generation</span><br>
+            of leaders.
+          </h2>
+          <img
+            class="about-photo reveal reveal-delay-2"
+            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=700&h=520&fit=crop&q=80"
+            alt="IQI Youth agents connecting and growing together"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <p class="about-body reveal">
+            IQI Youth was established with one clear purpose: to create a
+            <strong>dedicated space where young and growth-minded agents can truly thrive</strong>.
+            We saw the potential in our agents — the hunger, the drive, the ambition —
+            and we knew they deserved a platform built just for them.
+          </p>
+          <p class="about-body reveal reveal-delay-1">
+            Real estate isn't just a career — it's a calling. And when you're surrounded
+            by people who <strong>push you higher, celebrate your wins, and carry you through
+            the tough days</strong>, everything changes. That's exactly what IQI Youth is about.
+          </p>
+          <div class="about-divider reveal reveal-delay-2"></div>
+          <blockquote class="about-quote reveal reveal-delay-3">
+            "Together we lift, together we empower,<br>together we rise."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section id="benefits">
+    <div class="container">
+      <div class="benefits-header">
+        <div>
+          <p class="section-label reveal">Why Join Us</p>
+          <h2 class="benefits-headline reveal reveal-delay-1">
+            What you gain<br>when you rise<br>with us.
+          </h2>
+        </div>
+        <p style="max-width:260px;color:var(--text-muted);font-size:0.92rem;line-height:1.75;" class="reveal reveal-delay-2">
+          Membership is more than a badge — it's your gateway to a
+          community, resources, and opportunities that shape your career.
+        </p>
+      </div>
+
+      <div class="benefits-grid">
+
+        <div class="benefit-card reveal">
+          <svg class="benefit-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4L25 15H36L27 22L30 33L20 26L10 33L13 22L4 15H15L20 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <h3 class="benefit-title">Exclusive Community</h3>
+          <p class="benefit-desc">Connect with ambitious peers, senior mentors, and IQI leadership who are personally invested in your growth and success.</p>
+        </div>
+
+        <div class="benefit-card reveal reveal-delay-1">
+          <svg class="benefit-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 34V18M13 34V12M20 34V6M27 34V16M34 34V22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <h3 class="benefit-title">Accelerated Growth</h3>
+          <p class="benefit-desc">Access targeted training, live workshops, and mentorship programs designed to fast-track your real estate career.</p>
+        </div>
+
+        <div class="benefit-card reveal reveal-delay-2">
+          <svg class="benefit-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="13" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M7 36C7 28.82 12.82 23 20 23C27.18 23 33 28.82 33 36" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="33" cy="11" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M36.5 24C36.5 20.4 34.1 17.5 31 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <h3 class="benefit-title">Peer Empowerment</h3>
+          <p class="benefit-desc">A culture where agents genuinely lift one another — sharing leads, knowledge, and motivation without ego.</p>
+        </div>
+
+        <div class="benefit-card wide reveal reveal-delay-1">
+          <div class="benefit-content">
+            <svg class="benefit-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="9" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="20" cy="20" r="3.5" fill="currentColor" opacity="0.35"/>
+              <path d="M5 20H11M29 20H35M20 5V11M20 29V35" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <h3 class="benefit-title">Atlas Super App — Your Business Hub</h3>
+            <p class="benefit-desc">As an IQI agent you get full access to Atlas — your all-in-one platform for listings, reporting, networking, and continuous learning. Everything you need, in one powerful place.</p>
+          </div>
+          <div class="benefit-visual">
+            <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="55" cy="55" r="53"  stroke="rgba(255,153,51,0.14)" stroke-width="1"/>
+              <circle cx="55" cy="55" r="38"  stroke="rgba(255,153,51,0.1)"  stroke-width="1"/>
+              <circle cx="55" cy="55" r="23"  stroke="rgba(255,153,51,0.08)" stroke-width="1"/>
+              <circle cx="55" cy="55" r="5.5" fill="rgba(255,153,51,0.45)"/>
+              <line x1="55" y1="2"   x2="55"  y2="108" stroke="rgba(255,153,51,0.07)" stroke-width="1"/>
+              <line x1="2"  y1="55"  x2="108" y2="55"  stroke="rgba(255,153,51,0.07)" stroke-width="1"/>
+              <circle cx="55" cy="17" r="3" fill="#ff9933" opacity="0.55"/>
+              <circle cx="93" cy="55" r="3" fill="#ff9933" opacity="0.55"/>
+              <circle cx="55" cy="93" r="3" fill="#ff9933" opacity="0.55"/>
+              <circle cx="17" cy="55" r="3" fill="#ff9933" opacity="0.55"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="benefit-card reveal reveal-delay-2">
+          <svg class="benefit-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4L5 13V27L20 36L35 27V13L20 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M20 4V36M5 13L35 13M5 27L35 27" stroke="currentColor" stroke-width="1" opacity="0.35" stroke-dasharray="3 2"/>
+          </svg>
+          <h3 class="benefit-title">Recognition &amp; Awards</h3>
+          <p class="benefit-desc">Exclusive Youth Division milestones, leaderboards, and ceremonies that celebrate every step of your journey.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section id="categories">
+    <div class="container">
+      <div class="categories-header">
+        <p class="section-label reveal" style="justify-content:center;">Membership Tiers</p>
+        <h2 class="categories-headline reveal reveal-delay-1">Choose your category.<br>Own your journey.</h2>
+        <p class="categories-sub reveal reveal-delay-2">
+          Both tiers share the same mission — to rise together.
+          Find the one that fits where you are right now.
+        </p>
+      </div>
+
+      <div class="categories-grid">
+
+        <div class="cat-card alpha reveal">
+          <div class="cat-badge">Alpha Tier</div>
+          <div class="cat-name">Alpha</div>
+          <div class="cat-age">Ages 30 – 40</div>
+          <p class="cat-desc">
+            You've built a foundation. Alpha members are seasoned agents ready to lead,
+            mentor, and push their career to the highest level.
+            Your experience is an asset — use it to inspire the next wave.
+          </p>
+          <div class="cat-divider"></div>
+          <div class="cat-price-label">Registration Fee</div>
+          <div class="cat-price">RM 50 <span>/ one-time</span></div>
+        </div>
+
+        <div class="cat-card beta reveal reveal-delay-1">
+          <div class="cat-badge">Beta Tier</div>
+          <div class="cat-name">Beta</div>
+          <div class="cat-age">30 &amp; Below</div>
+          <p class="cat-desc">
+            You're hungry, bold, and just getting started. Beta members are
+            the energy of IQI Youth — eager to learn, fast to grow, and
+            ready to prove that age is never a barrier to greatness.
+          </p>
+          <div class="cat-divider"></div>
+          <div class="cat-price-label">Registration Fee</div>
+          <div class="cat-price">RM 50 <span>/ one-time</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN / CTA -->
+  <section id="join">
+    <div class="join-bg"></div>
+    <div class="join-lines" aria-hidden="true">
+      <svg width="100%" height="100%" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" fill="none">
+        <line x1="0"   y1="600" x2="560"  y2="0" stroke="rgba(255,102,51,0.05)" stroke-width="1"/>
+        <line x1="180" y1="600" x2="740"  y2="0" stroke="rgba(255,153,51,0.04)" stroke-width="1"/>
+        <line x1="880" y1="600" x2="1440" y2="0" stroke="rgba(255,102,51,0.05)" stroke-width="1"/>
+        <line x1="680" y1="600" x2="1240" y2="0" stroke="rgba(230,0,0,0.04)"    stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="join-content">
+        <p class="section-label reveal" style="justify-content:center;">Ready to Begin?</p>
+
+        <h2 class="join-headline reveal reveal-delay-1">
+          Rise with us.<br>
+          <span class="accent">Join IQI Youth</span><br>
+          today.
+        </h2>
+
+        <p class="join-sub reveal reveal-delay-2">
+          Take the first step toward a community that believes in your potential,
+          celebrates your growth, and walks every step of the journey with you.
+        </p>
+
+        <div class="join-fee reveal reveal-delay-3">
+          <span class="dot"></span>
+          One-time membership fee of RM50 — Alpha or Beta
+        </div>
+
+        <div class="join-actions reveal reveal-delay-4">
+          <a href="https://atlas.iqiglobal.com/#/marketing-centre/products-catalog" class="btn-join" target="_blank" rel="noopener">
+            Pay &amp; Register via Atlas Store →
+          </a>
+          <p class="join-note">
+            Registration processed through Atlas Store &nbsp;·&nbsp; Both categories: RM50
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="iqi">IQI</span>
+          <span class="sep">/</span>
+          <span class="youth">Youth</span>
+        </div>
+        <p class="footer-meta">
+          A division of IQI Global &nbsp;·&nbsp; Rise Together<br>
+          &copy; 2026 IQI Holdings Sdn Bhd. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 50);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  </script>
+</body>
+</html>
